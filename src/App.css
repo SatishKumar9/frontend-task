@@ -1,13 +1,13 @@
 .navBar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   color: #8c8c8c;
-  font-size: '14px';
+  font-size: "14px";
   /* font-family: "Avenir"; */
 }
 
 .companyLogo {
   height: 40px;
-  margin-right: 1rem; 
+  margin-right: 1rem;
   margin-top: 8px;
 }
 
@@ -40,7 +40,7 @@
   border-radius: 5px;
   color: black;
   margin: 1rem;
-  padding: 0.5rem 1rem;  
+  padding: 0.5rem 1rem;
 }
 
 .file-btn {
@@ -111,7 +111,7 @@
 
 .folder-card-content {
   padding: 10px 20px;
-  color: #2B2B2B;
+  color: #2b2b2b;
   background-color: #fff;
   display: flex;
   flex-direction: row;
@@ -169,7 +169,7 @@
 .modal-input {
   padding: 0.5rem 1rem;
   width: 100%;
-  border: 1px solid #DBDBDB;
+  border: 1px solid #dbdbdb;
   border-radius: 5px;
   outline: none;
 }
