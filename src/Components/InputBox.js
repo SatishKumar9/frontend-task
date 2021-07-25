@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-
+import React from "react";
 import search from "../assets/SearchO.svg";
 import cross from "../assets/Union.png";
 
 const InputBox = (props) => {
-  const { searchText, onSearch } = props;
-  const [cross, setCross] = useState();
+  let { searchText, onSearch, setSearchText } = props;
   const placeholder = "Search for a folder of file";
-  let clear;
+
+  const clearInput = () => {
+    setSearchText("");
+  };
 
   return (
     <div className="input-container">
@@ -19,8 +20,11 @@ const InputBox = (props) => {
         value={searchText}
         onChange={(e) => onSearch(e.target.value)}
       />
-      {clear}
-      {/* <img height="18px" style={{marginTop:"4px"}}  src={cross} alt="" /> */}
+      {searchText && (
+        <span onClick={clearInput}>
+          <img height="16px" src={cross} alt="" />
+        </span>
+      )}
     </div>
   );
 };

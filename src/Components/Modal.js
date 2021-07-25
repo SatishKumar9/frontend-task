@@ -104,6 +104,7 @@ const Modal = (props) => {
           }
           case "delete": {
             deleteItem(data);
+            break;
           }
           default:
             break;
@@ -122,14 +123,15 @@ const Modal = (props) => {
           }
           case "delete": {
             deleteItem(data);
+            break;
           }
           default:
             break;
         }
         break;
       }
-      default: {
-      }
+      default:
+        break;
     }
   };
 
