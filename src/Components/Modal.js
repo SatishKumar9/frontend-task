@@ -17,19 +17,19 @@ const Modal = props => {
     }
 
     return (
-        <div className="modal-container">
-            <div className="modal-content">
+        <div className="modal-container" onClick={props.onClose}>
+            <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-title">
                     <p className="modal-heading">SubSection</p>
-                    <img height="18px" src={cross} alt="" />
+                    <span onClick={props.onClose} className="pointer"><img height="18px" src={cross} alt="" /></span>
                 </div>
                 <div className="modal-body">
-                    <span>Name of the folder</span><br />
+                    <p>{props.title}</p>
                     <input className="modal-input" type="text" placeholder={placeholder} onChange={(e) => { inputChanges(e.target.value) }} />
                 </div>
                 <div className="modal-footer">
-                    <button className="folder-btn">Cancel</button>
-                    <button className="file-btn">Create folder</button>
+                    <button className="folder-btn" onClick={props.onClose}>Cancel</button>
+                    <button className="file-btn" onClick={props.onSubmit}>Create folder</button>
                 </div>
             </div>
         </div>

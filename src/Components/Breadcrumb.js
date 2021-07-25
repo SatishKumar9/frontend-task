@@ -30,13 +30,13 @@ const Breadcrumb = props => {
     return (
         <nav className="justify-content-center navBar">
             <ol className="breadcrumb">
-                <div onClick={() => (_.size(crumbs) > 1)? clickBack() : null }><img src={backArrow} alt="" width="20px" height="20px" style={{margin:"1rem 0.5rem 0 0"}}/></div>
+                <div onClick={() => (_.size(crumbs) > 1)? clickBack() : null } className="pointer"><img src={backArrow} alt="" width="20px" height="20px" style={{margin:"1rem 0.5rem 0 0"}}/></div>
                 <img src={logo} alt="" className="companyLogo" />
                 {
                     _.map(crumbs, (crumb, index) => {
                         return (
                             <div key={crumb.id}>
-                                <p
+                                <p className ="pointer"
                                     style={{ marginTop: "1rem" }}
                                     onClick={() => (_.size(crumbs) > 1)? selected({ crumb, type:"nav" }): null}
                                 >

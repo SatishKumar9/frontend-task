@@ -39,7 +39,7 @@ const Card = ({ data, cardSelected }) => {
     }
 
     return (
-        <div className="card-container" onClick={() => { if (isDirectory) { cardSelected({ crumb: data, type:"card" }) } }}>
+        <div className={`card-container ${isDirectory ? "pointer": ""}`} onClick={() => { if (isDirectory) { cardSelected({ crumb: data, type:"card" }) } }}>
             <div className="card-img" style={backgroundColor}>
                 {cardImage}
             </div>

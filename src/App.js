@@ -14,6 +14,21 @@ const App = () => {
   const rootChildrenIds = _.get(rootLevel, "[0].children", [])
   const [children, setChildren] = useState(_.filter(driveItems, item => _.includes(rootChildrenIds, item.id)));
 
+  const [searchText, setSearchText] = useState("")
+  const [searchResults, setSearchResults] = useState([])
+
+  const onSearch = ( params ) => {
+    setSearchText(params);
+    const filter = params.trim().toUpperCase();
+    const searchResults = _.filter(children, item => {
+      if (item.name.toUpperCase().indexOf(filter) > -1) {
+        return true;
+      }
+      
+    });
+    setSearchResults(searchResults)
+  }
+
   const selected = ({ crumb, type }) => {
     switch (type) {
       case "card": {
@@ -42,7 +57,7 @@ const App = () => {
   return (
     <div>
       <Breadcrumb crumbs={crumbs} selected={selected} clickBack={onClickBack} />
-      <DriveSection childItems={children} title={title} cardSelected={selected} />
+      <DriveSection childItems={searchText ? searchResults : children} title={title} cardSelected={selected} searchText={searchText} onSearch={onSearch} />
     </div>
   );
 }

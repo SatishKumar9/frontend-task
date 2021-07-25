@@ -5,9 +5,11 @@ import InputBox from "./InputBox"
 import Modal from "./Modal"
 import "../App.css"
 
-const DriveSection = ({ childItems, title, cardSelected }) => {
+const DriveSection = ({ childItems, title, cardSelected, searchText , onSearch  }) => {
 
     const [show, setShow] = useState(false);
+
+    console.log("child",childItems)
 
     const folderData = _.filter(childItems, item => item.isFolder)
     const fileData = _.filter(childItems, item => !item.isFolder)
@@ -19,13 +21,13 @@ const DriveSection = ({ childItems, title, cardSelected }) => {
                 <div>
                     <button className="folder-btn" onClick={() => { setShow(true) }}>New folder</button>
                     <button className="file-btn">New file</button>
-                    <Modal show={show} />
+                    <Modal show={show} onClose={() => setShow(false)} title={"name "} />
                 </div>
             </div>
-            <span className="font-light">{_.size(folderData)} Folders, {_.size(fileData)} file </span>
+            <span className="font-light">{_.size(folderData)} folders, {_.size(fileData)} files </span>
             <br />
             <br />
-            <InputBox />
+            <InputBox searchText={searchText} onSearch={onSearch}/>
             <br />
             {_.size(folderData) > 0 && <p className="sub-heading">{_.size(folderData)} folders</p>}
             <div className="cards-layout">
