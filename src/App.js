@@ -19,14 +19,13 @@ const App = () => {
   const [searchText, setSearchText] = useState("")
   const [searchResults, setSearchResults] = useState([])
 
-  const onSearch = ( params ) => {
+  const onSearch = (params) => {
     setSearchText(params);
     const filter = params.trim().toUpperCase();
     const searchResults = _.filter(children, item => {
       if (item.name.toUpperCase().indexOf(filter) > -1) {
         return true;
       }
-      
     });
     setSearchResults(searchResults)
   }
@@ -48,11 +47,16 @@ const App = () => {
 
   const addChild = id => {
     const parentId = _.indexOf(driveItems, parent)
-    driveItems[parentId].children.push(id) 
-    console.log(driveItems)
+    driveItems[parentId].children.unshift(id)
     setDriveItems(driveItems)
-    parent.children.push(id);
-    selected({crumb: parent})
+    selected({ crumb: parent })
+  }
+
+  const removeChild = id => {
+    const parentId = _.indexOf(driveItems, parent)
+    driveItems[parentId].children = _.get(driveItems, `${parentId}.children`, []).filter(item => item !== id)
+    setDriveItems(driveItems)
+    selected({ crumb: parent })
   }
 
   const onClickBack = () => {
@@ -69,7 +73,7 @@ const App = () => {
     <div>
       <Breadcrumb crumbs={crumbs} selected={selected} clickBack={onClickBack} />
       <DriveSection childItems={searchText ? searchResults : children} parent={parent} cardSelected={selected} searchText={searchText} onSearch={onSearch}
-      driveItems={driveItems} setDriveItems={setDriveItems} addChild={addChild} />
+        driveItems={driveItems} setDriveItems={setDriveItems} addChild={addChild} removeChild={removeChild}/>
     </div>
   );
 }

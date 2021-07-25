@@ -135,6 +135,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .modal-content {
@@ -185,4 +186,15 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.options-align {
+  margin-right: -1.5rem;
 }

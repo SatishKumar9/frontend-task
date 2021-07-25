@@ -3,20 +3,12 @@ import React, { useState } from "react"
 import search from "../assets/SearchO.svg"
 import cross from "../assets/Union.png"
 
-const InputBox = ({ searchText , onSearch }) => {
+const InputBox = props => {
 
+    const { searchText , onSearch } = props
     const [cross, setCross] = useState();
     const placeholder = "Search for a folder of file"
     let clear;
-
-    // const inputChanges = e => {
-    //     console.log(e)
-    //     if (e) {
-    //         setCross(<img height="18px" style={{marginTop:"4px"}}  src={cross} alt="" />)
-    //     }
-    //     // clear = (e) ? <img height="18px" style={{marginTop:"4px"}}  src={cross} alt="" /> : <span></span>
-    //     console.log(clear)
-    // }
 
     return (
         <div className="input-container">
