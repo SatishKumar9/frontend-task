@@ -17,6 +17,7 @@ const DriveSection = (props) => {
     setDriveItems,
     addChild,
     removeChild,
+    setSearchText,
   } = props;
   const [show, setShow] = useState(false);
   const [type, setType] = useState("");
@@ -106,7 +107,11 @@ const DriveSection = (props) => {
       </span>
       <br />
       <br />
-      <InputBox searchText={searchText} onSearch={onSearch} />
+      <InputBox
+        searchText={searchText}
+        onSearch={onSearch}
+        setSearchText={setSearchText}
+      />
       <br />
       {_.size(folderData) > 0 && (
         <p className="sub-heading">{_.size(folderData)} folders</p>

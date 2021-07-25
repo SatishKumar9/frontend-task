@@ -6,7 +6,7 @@ import Breadcrumb from "./Components/Breadcrumb";
 import DriveSection from "./Components/DriveSection";
 
 const App = () => {
-  const [driveItems, setDriveItems] = useState(data);     
+  const [driveItems, setDriveItems] = useState(data);
 
   const rootLevel = _.filter(driveItems, (item) => item.root);
   const [crumbs, setCrumbs] = useState(rootLevel);
@@ -43,6 +43,9 @@ const App = () => {
           crumbs.filter((item) => item.id === crumb.id)
         );
         setCrumbs(crumbs.slice(0, index));
+        break;
+      }
+      default: {
         break;
       }
     }
@@ -93,6 +96,7 @@ const App = () => {
         setDriveItems={setDriveItems}
         addChild={addChild}
         removeChild={removeChild}
+        setSearchText={setSearchText}
       />
     </div>
   );
