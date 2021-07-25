@@ -1,13 +1,13 @@
 .navBar {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
   color: #8c8c8c;
-  font-size: '14px';
+  font-size: "14px";
   /* font-family: "Avenir"; */
 }
 
 .companyLogo {
   height: 40px;
-  margin-right: 1rem; 
+  margin-right: 1rem;
   margin-top: 8px;
 }
 
@@ -40,7 +40,7 @@
   border-radius: 5px;
   color: black;
   margin: 1rem;
-  padding: 0.5rem 1rem;  
+  padding: 0.5rem 1rem;
 }
 
 .file-btn {
@@ -111,7 +111,7 @@
 
 .folder-card-content {
   padding: 10px 20px;
-  color: #2B2B2B;
+  color: #2b2b2b;
   background-color: #fff;
   display: flex;
   flex-direction: row;
@@ -131,16 +131,16 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 
 .modal-content {
   width: 35rem !important;
-  height: 18rem;
+  height: auto;
   background-color: #fff;
   padding: 2rem 2rem 1rem 2rem;
   border-radius: 15px !important;
@@ -149,8 +149,9 @@
 .modal-title {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+  margin-bottom: 1rem !important;
 }
 
 .modal-heading {
@@ -162,9 +163,38 @@
 .modal-body {
   color: #222222;
   padding: 0 !important;
+  margin-bottom: 1rem !important;
+}
+
+.modal-input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  outline: none;
+}
+
+.modal-input:focus {
+  /* border: none; */
+  outline: none;
 }
 
 .modal-footer {
   border-top: none !important;
-  /* padding: 0 !important; */
+  padding-right: 0 !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.options-align {
+  margin-right: -1.5rem;
 }
