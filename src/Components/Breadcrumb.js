@@ -10,7 +10,6 @@ import logo from "../assets/logo.png"
 const Breadcrumb = props => {
 
     const { crumbs, selected, clickBack } = props;
-    console.log("crumbs>>>>..", crumbs)
     const seperator = index => {
         if (index !== crumbs.length - 1) {
             return <img height="15px" src={rightArrow} alt="" />

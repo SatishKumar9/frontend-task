@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import _ from "lodash";
 import './App.css';
-import driveItems from './Data';
+import data from './Data';
 import Breadcrumb from './Components/Breadcrumb';
 import DriveSection from './Components/DriveSection';
 
 const App = () => {
 
+  const [driveItems, setDriveItems] = useState(data)
+
   const rootLevel = _.filter(driveItems, item => item.root);
   const [crumbs, setCrumbs] = useState(rootLevel);
-  const [title, setTitle] = useState(_.get(rootLevel, "[0].name", []));
+  const [parent, setParent] = useState(_.get(rootLevel, "[0]", []));
 
   const rootChildrenIds = _.get(rootLevel, "[0].children", [])
   const [children, setChildren] = useState(_.filter(driveItems, item => _.includes(rootChildrenIds, item.id)));
@@ -40,8 +42,17 @@ const App = () => {
         break;
       }
     }
-    setTitle(crumb.name)
+    setParent(crumb)
     setChildren(_.filter(driveItems, item => _.includes(crumb.children, item.id)))
+  }
+
+  const addChild = id => {
+    const parentId = _.indexOf(driveItems, parent)
+    driveItems[parentId].children.push(id) 
+    console.log(driveItems)
+    setDriveItems(driveItems)
+    parent.children.push(id);
+    selected({crumb: parent})
   }
 
   const onClickBack = () => {
@@ -57,7 +68,8 @@ const App = () => {
   return (
     <div>
       <Breadcrumb crumbs={crumbs} selected={selected} clickBack={onClickBack} />
-      <DriveSection childItems={searchText ? searchResults : children} title={title} cardSelected={selected} searchText={searchText} onSearch={onSearch} />
+      <DriveSection childItems={searchText ? searchResults : children} parent={parent} cardSelected={selected} searchText={searchText} onSearch={onSearch}
+      driveItems={driveItems} setDriveItems={setDriveItems} addChild={addChild} />
     </div>
   );
 }
