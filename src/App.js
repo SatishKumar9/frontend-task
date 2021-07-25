@@ -38,11 +38,8 @@ const App = () => {
         break;
       }
       case "nav": {
-        let index = _.indexOf(
-          crumbs,
-          crumbs.filter((item) => item.id === crumb.id)
-        );
-        setCrumbs(crumbs.slice(0, index));
+        let index = _.indexOf(crumbs, crumb);
+        setCrumbs(crumbs.slice(0, index + 1));
         break;
       }
       default: {

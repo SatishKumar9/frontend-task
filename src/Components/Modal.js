@@ -161,12 +161,23 @@ const Modal = (props) => {
           )}
         </div>
         <div className="modal-footer">
-          <button className="folder-btn" onClick={onClose}>
+          {actionType === "delete" && (
+            <button className="danger-btn" onClick={onSubmit}>
+              {actionText}
+            </button>
+          )}
+          <button className="folder-btn btn-border-light" onClick={onClose}>
             Cancel
           </button>
-          <button className="file-btn" onClick={onSubmit}>
-            {actionText}
-          </button>
+          {actionType !== "delete" && (
+            <button
+              className="file-btn"
+              onClick={onSubmit}
+              disabled={input ? false : true}
+            >
+              {actionText}
+            </button>
+          )}
         </div>
       </div>
     </div>

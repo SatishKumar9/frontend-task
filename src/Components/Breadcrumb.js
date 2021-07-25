@@ -46,7 +46,9 @@ const Breadcrumb = (props) => {
                 className="pointer"
                 style={{ marginTop: "1rem" }}
                 onClick={() =>
-                  _.size(crumbs) > 1 ? selected({ crumb, type: "nav" }) : null
+                  index !== _.size(crumbs) - 1
+                    ? selected({ crumb, type: "nav" })
+                    : null
                 }
               >
                 <span style={crumbItem(index)}>{crumb.name}</span>

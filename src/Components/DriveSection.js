@@ -33,7 +33,7 @@ const DriveSection = (props) => {
       children: [],
       isFolder: true,
     };
-    setDriveItems(driveItems.push(driveItem));
+    setDriveItems(driveItems.unshift(driveItem));
     addChild(driveItem.id);
     setShow(false);
   };
@@ -46,7 +46,7 @@ const DriveSection = (props) => {
       children: null,
       isFolder: false,
     };
-    setDriveItems(driveItems.push(driveItem));
+    setDriveItems(driveItems.unshift(driveItem));
     addChild(driveItem.id);
     setShow(false);
   };
@@ -102,8 +102,8 @@ const DriveSection = (props) => {
           )}
         </div>
       </div>
-      <span className="font-light">
-        {_.size(folderData)} folders, {_.size(fileData)} files{" "}
+      <span className="font-14px">
+        {_.size(folderData)} folders, {_.size(fileData)} files
       </span>
       <br />
       <br />
@@ -126,6 +126,7 @@ const DriveSection = (props) => {
             setDriveItems={setDriveItems}
             removeChild={removeChild}
             duplicateChild={duplicateChild}
+            setSearchText={setSearchText}
           />
         ))}
       </div>

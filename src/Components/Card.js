@@ -8,6 +8,9 @@ import pdf from "../assets/File-pdf.svg";
 import ppt from "../assets/File-ppt.svg";
 import doc from "../assets/File-text.svg";
 import dots from "../assets/DotsVerticalO.svg";
+import edit from "../assets/Edit-line.svg";
+import duplicate from "../assets/Vector.svg";
+import bin from "../assets/Delete.svg";
 
 const Card = (props) => {
   const {
@@ -17,6 +20,7 @@ const Card = (props) => {
     setDriveItems,
     removeChild,
     duplicateChild,
+    setSearchText,
   } = props;
   let cardImage;
   let backgroundColor;
@@ -68,6 +72,7 @@ const Card = (props) => {
       onClick={() => {
         if (isDirectory) {
           cardSelected({ crumb: data, type: "card" });
+          setSearchText("");
         }
       }}
     >
@@ -87,13 +92,11 @@ const Card = (props) => {
           ) : (
             ""
           )}
-          <span>{isDirectory ? data.name : _.split(data.name, ".")[0]}</span>
+          <span className="filename">
+            {isDirectory ? data.name : _.split(data.name, ".")[0]}
+          </span>
         </div>
-        <Dropdown
-          onClick={(e) => e.stopPropagation()}
-          align="end"
-          className="options-align"
-        >
+        <Dropdown onClick={(e) => e.stopPropagation()} align="end">
           <Dropdown.Toggle variant="success">
             <img src={dots} alt="dot" />
           </Dropdown.Toggle>
@@ -105,7 +108,12 @@ const Card = (props) => {
                 setShow(true);
               }}
             >
-              Rename {isDirectory ? "folder" : "file"}{" "}
+              <div className="card-options">
+                <img src={edit} alt="" />
+                <span className="ml-1rem">
+                  Rename {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
             <Dropdown.Item
               eventKey="2"
@@ -113,7 +121,12 @@ const Card = (props) => {
                 duplicateChild(data);
               }}
             >
-              Duplicate {isDirectory ? "folder" : "file"}
+              <div className="card-options">
+                <img src={duplicate} alt="" />
+                <span className="ml-1rem">
+                  Duplicate {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
             <Dropdown.Item
               eventKey="3"
@@ -122,7 +135,12 @@ const Card = (props) => {
                 setShow(true);
               }}
             >
-              Delete {isDirectory ? "folder" : "file"}
+              <div className="card-options">
+                <img src={bin} alt="" height="16px" width="16px" />
+                <span className="ml-1rem danger">
+                  Delete {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
