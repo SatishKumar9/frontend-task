@@ -1,19 +1,22 @@
 import React from "react";
+import _ from "lodash";
 
 import "../App.css";
-import _ from "lodash";
 import backArrow from "../assets/Back.png";
 import rightArrow from "../assets/Path (1).png";
 import logo from "../assets/logo.png";
 
 const Breadcrumb = (props) => {
   const { crumbs, selected, clickBack } = props;
+
+  // nav crumbs seperator
   const seperator = (index) => {
     if (index !== crumbs.length - 1) {
       return <img height="15px" src={rightArrow} alt="" />;
     }
   };
 
+  // current parent folder crumb styling
   const crumbItem = (index) => {
     if (index === crumbs.length - 1) {
       return {

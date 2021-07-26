@@ -1,11 +1,14 @@
 import React from "react";
+
 import search from "../assets/SearchO.svg";
 import cross from "../assets/Union.png";
 
 const InputBox = (props) => {
   let { searchText, onSearch, setSearchText } = props;
+
   const placeholder = "Search for a folder of file";
 
+  // clears input field upon clicking on X (cross)
   const clearInput = () => {
     setSearchText("");
   };

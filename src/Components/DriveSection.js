@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import _ from "lodash";
+import { v4 } from "uuid"; // generates unique ids for folders/files created into drive data
+
+import "../App.css";
 import Card from "./Card";
 import InputBox from "./InputBox";
 import Modal from "./Modal";
-import "../App.css";
-import { v4 } from "uuid";
 
 const DriveSection = (props) => {
   const {
@@ -19,12 +20,14 @@ const DriveSection = (props) => {
     removeChild,
     setSearchText,
   } = props;
-  const [show, setShow] = useState(false);
-  const [type, setType] = useState("");
 
-  const folderData = _.filter(childItems, (item) => item.isFolder);
-  const fileData = _.filter(childItems, (item) => !item.isFolder);
+  const [showModal, setShowModal] = useState(false);
+  const [type, setType] = useState(""); // drive item type to be created via modal - either folder/file
 
+  const folderData = _.filter(childItems, (item) => item.isFolder); // list of folders for current directory
+  const fileData = _.filter(childItems, (item) => !item.isFolder); // list of files for current directory
+
+  // adding new folder to drive data
   const createFolder = (data) => {
     const driveItem = {
       id: v4(),
@@ -35,9 +38,10 @@ const DriveSection = (props) => {
     };
     setDriveItems(driveItems.unshift(driveItem));
     addChild(driveItem.id);
-    setShow(false);
+    setShowModal(false);
   };
 
+  // adding new file to drive data
   const createFile = (data) => {
     const driveItem = {
       id: v4(),
@@ -48,9 +52,10 @@ const DriveSection = (props) => {
     };
     setDriveItems(driveItems.unshift(driveItem));
     addChild(driveItem.id);
-    setShow(false);
+    setShowModal(false);
   };
 
+  // duplicate existing drive item - appends "_copy" to the file/folder name
   const duplicateChild = (data) => {
     let name = `${data.name}_copy`;
     if (!data.isFolder) {
@@ -64,7 +69,7 @@ const DriveSection = (props) => {
       children: [],
       isFolder: data.isFolder,
     };
-    setDriveItems(driveItems.push(driveItem));
+    setDriveItems(driveItems.unshift(driveItem));
     addChild(driveItem.id);
   };
 
@@ -76,7 +81,7 @@ const DriveSection = (props) => {
           <button
             className="folder-btn"
             onClick={() => {
-              setShow(true);
+              setShowModal(true);
               setType("folder");
             }}
           >
@@ -85,15 +90,16 @@ const DriveSection = (props) => {
           <button
             className="file-btn"
             onClick={() => {
-              setShow(true);
+              setShowModal(true);
               setType("file");
             }}
           >
             New file
           </button>
-          {show && (
+          {/* Modal to create new folder/file */}
+          {showModal && (
             <Modal
-              onClose={() => setShow(false)}
+              onClose={() => setShowModal(false)}
               type={type}
               createFolder={createFolder}
               createFile={createFile}
@@ -107,12 +113,14 @@ const DriveSection = (props) => {
       </span>
       <br />
       <br />
+      {/* Search Box to filter drive data of current directory */}
       <InputBox
         searchText={searchText}
         onSearch={onSearch}
         setSearchText={setSearchText}
       />
       <br />
+      {/* list of folder of current directory */}
       {_.size(folderData) > 0 && (
         <p className="sub-heading">{_.size(folderData)} folders</p>
       )}
@@ -130,6 +138,7 @@ const DriveSection = (props) => {
           />
         ))}
       </div>
+      {/* list of files of current directory */}
       {_.size(fileData) > 0 && (
         <p className="sub-heading">{_.size(fileData)} files</p>
       )}
