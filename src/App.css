@@ -170,7 +170,6 @@ button:disabled {
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 1rem !important;
 }
 
 .modal-heading {
@@ -190,7 +189,6 @@ button:disabled {
   border: 1px solid #dbdbdb;
   border-radius: 5px;
   outline: none;
-  margin-bottom: 1rem !important;
 }
 
 .modal-input:focus {
