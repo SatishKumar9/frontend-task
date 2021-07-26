@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import cross from "../assets/Union.png";
-
 import "../App.css";
+
+import cross from "../assets/Union.png";
 
 const Modal = (props) => {
   const {
@@ -16,9 +16,12 @@ const Modal = (props) => {
     renameItem,
   } = props;
 
-  const filename = actionType === "rename" ? data.name : "";
-  const [input, setInput] = useState(filename);
+  const filename = actionType === "rename" ? data.name : ""; // for rename action, input field is auto populated with existing filename
+  const [input, setInput] = useState(filename); // entered input value for folder/file name
 
+  // modal text to be displayed for folder/file and for each different available action
+  // actionType -> create, delete, rename
+  // type -> folder, file
   let heading = "";
   let subHeading = "";
   let placeholder = "";
@@ -86,10 +89,12 @@ const Modal = (props) => {
     }
   }
 
+  // entered input for folder/file name
   const inputChanges = (value) => {
     setInput(value);
   };
 
+  // calls relevant method based on type and action, upon submiting modal
   const onSubmit = () => {
     switch (type) {
       case "folder": {
@@ -161,12 +166,23 @@ const Modal = (props) => {
           )}
         </div>
         <div className="modal-footer">
-          <button className="folder-btn" onClick={onClose}>
+          {actionType === "delete" && (
+            <button className="danger-btn" onClick={onSubmit}>
+              {actionText}
+            </button>
+          )}
+          <button className="folder-btn btn-border-light" onClick={onClose}>
             Cancel
           </button>
-          <button className="file-btn" onClick={onSubmit}>
-            {actionText}
-          </button>
+          {actionType !== "delete" && (
+            <button
+              className="file-btn"
+              onClick={onSubmit}
+              disabled={input ? false : true}
+            >
+              {actionText}
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import _ from "lodash";
 import { Dropdown } from "react-bootstrap";
-import Modal from "./Modal";
+
 import "../App.css";
+import Modal from "./Modal";
+
 import folder from "../assets/Folder.svg";
 import pdf from "../assets/File-pdf.svg";
 import ppt from "../assets/File-ppt.svg";
 import doc from "../assets/File-text.svg";
 import dots from "../assets/DotsVerticalO.svg";
+import edit from "../assets/Edit-line.svg";
+import duplicate from "../assets/Vector.svg";
+import bin from "../assets/Delete.svg";
 
 const Card = (props) => {
   const {
@@ -17,13 +22,16 @@ const Card = (props) => {
     setDriveItems,
     removeChild,
     duplicateChild,
+    setSearchText,
   } = props;
+
   let cardImage;
   let backgroundColor;
   const isDirectory = data.isFolder;
-  const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [actionType, setActionType] = useState("");
 
+  // setting card images and background colors according to file extensions
   if (!isDirectory) {
     const ext = _.split(data.name, ".")[1];
     if (ext === "pdf") {
@@ -49,17 +57,19 @@ const Card = (props) => {
     cardImage = <img src={folder} alt="folder" />;
   }
 
+  // rename folder/file in drive data
   const renameItem = ({ data, input }) => {
     let index = _.indexOf(driveItems, data);
     driveItems[index].name = input;
     setDriveItems(driveItems);
-    setShow(false);
+    setShowModal(false);
   };
 
+  // deleting folder/file from drive data
   const deleteItem = (data) => {
     setDriveItems(_.filter(driveItems, (item) => item.id !== data.id));
     removeChild(data.id);
-    setShow(false);
+    setShowModal(false);
   };
 
   return (
@@ -68,9 +78,11 @@ const Card = (props) => {
       onClick={() => {
         if (isDirectory) {
           cardSelected({ crumb: data, type: "card" });
+          setSearchText("");
         }
       }}
     >
+      {/* card contents */}
       <div className="card-img" style={backgroundColor}>
         {cardImage}
       </div>
@@ -87,13 +99,12 @@ const Card = (props) => {
           ) : (
             ""
           )}
-          <span>{isDirectory ? data.name : _.split(data.name, ".")[0]}</span>
+          <span className="filename">
+            {isDirectory ? data.name : _.split(data.name, ".")[0]}
+          </span>
         </div>
-        <Dropdown
-          onClick={(e) => e.stopPropagation()}
-          align="end"
-          className="options-align"
-        >
+        {/* actions dropdown */}
+        <Dropdown onClick={(e) => e.stopPropagation()} align="end">
           <Dropdown.Toggle variant="success">
             <img src={dots} alt="dot" />
           </Dropdown.Toggle>
@@ -102,10 +113,15 @@ const Card = (props) => {
               eventKey="1"
               onClick={() => {
                 setActionType("rename");
-                setShow(true);
+                setShowModal(true);
               }}
             >
-              Rename {isDirectory ? "folder" : "file"}{" "}
+              <div className="card-options">
+                <img src={edit} alt="" />
+                <span className="ml-1rem">
+                  Rename {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
             <Dropdown.Item
               eventKey="2"
@@ -113,22 +129,33 @@ const Card = (props) => {
                 duplicateChild(data);
               }}
             >
-              Duplicate {isDirectory ? "folder" : "file"}
+              <div className="card-options">
+                <img src={duplicate} alt="" />
+                <span className="ml-1rem">
+                  Duplicate {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
             <Dropdown.Item
               eventKey="3"
               onClick={() => {
                 setActionType("delete");
-                setShow(true);
+                setShowModal(true);
               }}
             >
-              Delete {isDirectory ? "folder" : "file"}
+              <div className="card-options">
+                <img src={bin} alt="" height="16px" width="16px" />
+                <span className="ml-1rem danger">
+                  Delete {isDirectory ? "folder" : "file"}
+                </span>
+              </div>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        {show && (
+        {/* Modal for renaming and deleting folder/file */}
+        {showModal && (
           <Modal
-            onClose={() => setShow(false)}
+            onClose={() => setShowModal(false)}
             type={isDirectory ? "folder" : "file"}
             actionType={actionType}
             data={data}
