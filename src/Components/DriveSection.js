@@ -60,7 +60,7 @@ const DriveSection = (props) => {
     let name = `${data.name}_copy`;
     if (!data.isFolder) {
       const nameSplit = _.split(data.name, ".");
-      name = `${nameSplit[0]}_copy.${nameSplit[-1]}`;
+      name = `${nameSplit[0]}_copy.${nameSplit[1]}`;
     }
     const driveItem = {
       id: v4(),
