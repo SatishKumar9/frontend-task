@@ -182,7 +182,6 @@ button:disabled {
 .modal-body {
   color: #222222;
   padding: 0 !important;
-  margin-bottom: 1rem !important;
 }
 
 .modal-input {
@@ -191,6 +190,7 @@ button:disabled {
   border: 1px solid #dbdbdb;
   border-radius: 5px;
   outline: none;
+  margin-bottom: 1rem !important;
 }
 
 .modal-input:focus {
